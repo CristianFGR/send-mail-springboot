@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Untitled Document</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Estilos gráficos -->
+    <style>
+        body{
+            margin:0;
+            padding: 0;
+            font-family: 'Open Sans',sans-serif, arial;
+            font-size: 13px;
+            background: #f7f7f7;
+        }
+        .container-email{
+            width: 600px;
+            margin: 0 auto;
+            margin-top: 10px;
+            background: #ffffff;
+            padding: 0 10px 10px 10px;
+            border:1px solid #cccccc;
+        }
+        .margin-sup{
+            height: 10px;
+        }
+        h2{
+            font-weight: 600;
+            font-size: 15px;
+            border-bottom: 1px solid #78222f;
+            line-height: 35px;
+            color: #78222f;
+        }
+        .text-label{
+            font-weight: 600;
+            font-size: 13px;
+            color: rgba(0,0,0,0.87);
+            height: 30px;
+            width: 350px;
+        }
+        .text-dato{
+            font-weight: 400;
+            font-size: 13px;
+            color: rgba(0,0,0,0.54);
+            height: 30px;
+        }
+        @media (max-width: 360px){
+            tr{
+                width:100%;
+            }
+            td{
+                width:100%;
+                float: left;
+            }
+            thead, tbody{
+                width:100%;
+            }
+            th{
+                width:100%;
+            }
+            .container-email{
+                width: 360px;
+                margin: 0 auto;
+                margin-top: 10px;
+                background: #ffffff;
+                padding: 0 10px 10px 10px;
+                border:1px solid #cccccc;
+            }
+            .text-label{
+                font-weight: 600;
+                font-size: 13px;
+                color: rgba(0,0,0,0.87);
+                height: 30px;
+                width: 100%;
+            }
+        }
+    </style>
+    <!-- -->
+</head>
+<body>
+<table border="0" class="container-email" cellspacing="0" cellpadding="0">
+    <thead>
+    <th colspan="2" style="background: -130px center no-repeat; background-size: 140%; height: 90px">
+        <img  src="../images/header.jpg"   th:src="@{images/header.jpg}"/>
+    </th>
+    </thead>
+    <tbody>
+    <!-- Mensaje intro -->
+    <tr>
+        <td class="margin-sup"></td>
+    </tr>
+    <tr>
+        <td colspan="2">Se ha Realizado una solicitud de Certificado. La Escuela de Postgrado es la única fuente de información oficial respecto de la tramitación de estas solicitudes.</td>
+    </tr>
+    <tr>
+        <td class="margin-sup"></td>
+    </tr>
+    <!-- Bloque datos personales -->
+    <tr>
+        <td colspan="2"><h2>Datos personales</h2></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table border="0" class="container-email" cellspacing="0" cellpadding="0" style="border:none !important;">
+                <tr>
+                    <td class="text-label" style="width: 270px;">Nombre completo</td>
+                    <td class="text-dato"><p th:text="${nombre}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Rut</td>
+                    <td class="text-dato"><p th:text="${rut}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Nacionalidad</td>
+                    <td class="text-dato"><p th:text="${nacionalidad}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Teléfono fijo</td>
+                    <td class="text-dato"><p th:text="${telefonoFijo}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Teléfono móvil</td>
+                    <td class="text-dato"><p th:text="${telefonoMovil}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Domicilio</td>
+                    <td class="text-dato"><p th:text="${domicilio}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">País y ciudad de residencia</td>
+                    <td class="text-dato"><p th:text="${pais}"></p></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- Bloque datos academicos -->
+    <tr>
+        <td colspan="2"><h2>Datos académicos</h2></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table border="0" class="container-email" cellspacing="0" cellpadding="0" style="border:none !important;">
+                <tr>
+                    <td class="text-label" style="width: 270px;">Título profesional o grado académico</td>
+                    <td class="text-dato"><p th:text="${tituloProfesional}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Casa de estudios</td>
+                    <td class="text-dato"><p th:text="${casaEstudios}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Ubicación casa de estudios</td>
+                    <td class="text-dato"><p th:text="${ubicacionCasaEstudios}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Año titulación></p></td>
+                    <td class="text-dato"><p th:text="${anioTitulacion}"</td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Ocupacion actual></p></td>
+                    <td class="text-dato"><p th:text="${ocupacion}"</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- Bloque datos academicos -->
+    <tr>
+        <td colspan="2"><h2>Otros datos</h2></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table border="0" class="container-email" cellspacing="0" cellpadding="0" style="border:none !important;">
+                <tr>
+                    <td class="text-label" style="width: 270px;">¿Cómo se enteró del programa?</td>
+                    <td class="text-dato"><p th:text="${programa}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Fuentes de financiamiento</td>
+                    <td class="text-dato"><p th:text="${financiamiento}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Comentarios u observaciones</td>
+                    <td class="text-dato"><p th:text="${comentario}"></p></td>
+                </tr>
+                <tr>
+                    <td class="text-label" style="width: 270px;">Archivo Adjunto</td>
+                    <td class="text-dato"><p th:text="${adjunto}"></p></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Cierre mail -->
+    <tr>
+        <td colspan="2" class="text-dato">La respuesta oficial será enviada a su correo electrónico Consideraciones importantes:</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

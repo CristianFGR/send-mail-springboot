@@ -1,7 +1,7 @@
-arquetipo-restfull-springboot-mail
+restful-springboot-mail
 =========
 
-Fuentes del arquetipo RestFull SpringBoot backend para envio de correo.
+Fuentes del arquetipo RestFul SpringBoot backend para envio de correo.
 Para compilar
 ```
 mvn clean install
@@ -13,26 +13,26 @@ mvn spring-boot:run
 
 ##### USO
 
-Para utilizar este aplicativo, se necesita un json en el body con la siguiente
-estructura
+Para utilizar este aplicativo para envio de correo tradicional
 ```
-{
-      "to": "correo destinatario",
-      "subject": "asunto para el correo",
-      "text": "lo que se quiere informar"
-}
-```
+POST ->  http://localhost:8080/mail/send
 
-Envio de correo tradicional
-```
-http://localhost:8080/mail/send
-```
-Envio de correo con templete
-```
-http://localhost:8080/mail/sendTemplate
+{
+    "to": "cristianfgr@ragnaxsistemas.cl",
+    "subject": "Pruebas de correo",
+     "from": "test@mail.cl"
+}
 ```
 Envio de correo con archivo adjunto
 ```
-http://localhost:8080/mail/sendAttachment
+POST -> http://localhost:8080/mail//send-with-attachment
+
+{
+    "to": "cristianfgr@ragnaxsistemas.cl",
+    "subject": "Pruebas de correo",
+     "from": "test@mail.cl",
+     "nameFile":"declaComp.pdf"
+}
+```
 
  

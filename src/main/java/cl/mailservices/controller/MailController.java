@@ -2,11 +2,13 @@ package cl.mailservices.controller;
 
 import cl.mailservices.domain.Mail;
 import cl.mailservices.service.EmailServiceImpl;
+import cl.mailservices.service.IEmailService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,43 +25,29 @@ import javax.validation.Valid;
 public class MailController {
 
     @Autowired
-    public EmailServiceImpl emailService;
+    public IEmailService emailService;
 
-    @Autowired
-    public SimpleMailMessage template;
-
-    @Value("${attachment.invoice}")
+    @Value("${attachment.filePath}")
     private String attachmentPath;
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 503, message = "Error con el servicio envio de Correo", response = String.class)})
     @RequestMapping(value = "/send", method = RequestMethod.POST)
     public ResponseEntity<String> createMail(@RequestBody @Valid Mail mailObject, Errors errors) {
         if (errors.hasErrors()) {
-            return new ResponseEntity<>("OK", HttpStatus.SERVICE_UNAVAILABLE);
+            return new ResponseEntity<>(errors.getAllErrors().toString(), HttpStatus.SERVICE_UNAVAILABLE);
         }
-        emailService.sendSimpleMessage(mailObject.getTo(), mailObject.getSubject(), mailObject.getText());
+        emailService.sendMail(mailObject);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/sendTemplate", method = RequestMethod.POST)
-    public ResponseEntity<String> createMailWithTemplate(@RequestBody @Valid Mail mailObject, Errors errors) {
-        if (errors.hasErrors()) {
-            return new ResponseEntity<>("OK", HttpStatus.SERVICE_UNAVAILABLE);
-        }
-        emailService.sendSimpleMessageUsingTemplate(mailObject.getTo(), mailObject.getSubject(), template,
-                mailObject.getText());
-
-        return new ResponseEntity<>("OK", HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/sendAttachment", method = RequestMethod.POST)
+    @RequestMapping(value = "/send-with-attachment", method = RequestMethod.POST)
     public ResponseEntity<String> createMailWithAttachment(@RequestBody @Valid Mail mailObject, Errors errors) {
         if (errors.hasErrors()) {
-            return new ResponseEntity<>("OK", HttpStatus.SERVICE_UNAVAILABLE);
+            return new ResponseEntity<>(errors.getAllErrors().toString(), HttpStatus.SERVICE_UNAVAILABLE);
         }
-        emailService.sendMessageWithAttachment(mailObject.getTo(), mailObject.getSubject(), mailObject.getText(),
-                attachmentPath
-        );
+        emailService.sendMessageWithAttachment(mailObject, attachmentPath);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }

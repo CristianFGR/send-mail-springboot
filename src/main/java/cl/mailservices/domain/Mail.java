@@ -13,8 +13,10 @@ public class Mail {
     @NotNull
     @Size(min = 1, message = "Please, set an email address to send the message to it")
     private String to;
+    private String from;
     private String subject;
-    private String text;
+
+    private String nameFile;
 
     public String getTo() {
         return to;
@@ -22,6 +24,14 @@ public class Mail {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public String getSubject() {
@@ -32,11 +42,11 @@ public class Mail {
         this.subject = subject;
     }
 
-    public String getText() {
-        return text;
+    public String getNameFile() {
+        return nameFile;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setNameFile(String nameFile) {
+        this.nameFile = nameFile;
     }
 }

@@ -1,7 +1,6 @@
 package cl.mailservices.controller;
 
 import cl.mailservices.domain.Mail;
-import cl.mailservices.service.EmailServiceImpl;
 import cl.mailservices.service.IEmailService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -11,9 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
@@ -32,7 +31,7 @@ public class MailController {
 
     @ApiResponses(value = {
             @ApiResponse(code = 503, message = "Error con el servicio envio de Correo", response = String.class)})
-    @RequestMapping(value = "/send", method = RequestMethod.POST)
+    @PostMapping(value = "/send")
     public ResponseEntity<String> createMail(@RequestBody @Valid Mail mailObject, Errors errors) {
         if (errors.hasErrors()) {
             return new ResponseEntity<>(errors.getAllErrors().toString(), HttpStatus.SERVICE_UNAVAILABLE);
@@ -42,7 +41,7 @@ public class MailController {
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/send-with-attachment", method = RequestMethod.POST)
+    @PostMapping(value = "/send-with-attachment")
     public ResponseEntity<String> createMailWithAttachment(@RequestBody @Valid Mail mailObject, Errors errors) {
         if (errors.hasErrors()) {
             return new ResponseEntity<>(errors.getAllErrors().toString(), HttpStatus.SERVICE_UNAVAILABLE);

@@ -2,6 +2,8 @@ package cl.mailservices.service;
 
 import cl.mailservices.domain.Mail;
 import cl.mailservices.domain.Postgrado;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
@@ -19,6 +21,8 @@ import java.io.File;
  */
 @Component
 public class EmailServiceImpl implements IEmailService {
+
+    private static final Logger LOGGER = LogManager.getLogger(EmailServiceImpl.class);
 
     @Autowired
     public JavaMailSender emailSender;
@@ -39,7 +43,7 @@ public class EmailServiceImpl implements IEmailService {
             };
             emailSender.send(messagePreparator);
         } catch (MailException mailEx) {
-            mailEx.printStackTrace();
+            LOGGER.error(mailEx.getMessage());
         }
     }
 
@@ -58,7 +62,7 @@ public class EmailServiceImpl implements IEmailService {
             };
             emailSender.send(messagePreparator);
         } catch (MailException mailEx) {
-            mailEx.printStackTrace();
+            LOGGER.error(mailEx.getMessage());
         }
 
     }

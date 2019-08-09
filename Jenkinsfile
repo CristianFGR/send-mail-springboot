@@ -4,7 +4,7 @@ def imageTag = “gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NU
 pipeline {
  agent {
    node {
-     label(‘jenkins-slave-java’)
+     label(‘slave-java-01’)
    }
  }
  stages {

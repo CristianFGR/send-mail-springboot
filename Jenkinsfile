@@ -1,6 +1,5 @@
 def project = ‘’
 def appName = ‘send-mail’
-def imageTag = “gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}”
 pipeline {
  agent {
    node {

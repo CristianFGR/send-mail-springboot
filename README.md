@@ -12,7 +12,10 @@ mvn spring-boot:run
 ```
 
 ##### USO
-
+Documentacion y uso de Swagger
+```
+http://localhost:8080/swagger-ui.html#/
+```
 Para utilizar este aplicativo para envio de correo tradicional
 ```
 POST ->  http://localhost:8080/mail/send
@@ -35,4 +38,9 @@ POST -> http://localhost:8080/mail//send-with-attachment
 }
 ```
 
- 
+Para consultar por el estado (UP-DOWN) o la info que carga del ambiente 
+```
+http://localhost:8080/actuator/health
+http://localhost:8080/actuator/env
+http://localhost:8080/actuator/info
+```

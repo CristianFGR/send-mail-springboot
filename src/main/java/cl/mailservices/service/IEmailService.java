@@ -7,7 +7,7 @@ import cl.mailservices.domain.Mail;
  */
 public interface IEmailService {
 
-    void sendMail(Mail mail);
+    String sendMail(Mail mail);
 
-    void sendMessageWithAttachment(Mail mail, String nameFile);
+    String sendMessageWithAttachment(Mail mail, String nameFile);
 }

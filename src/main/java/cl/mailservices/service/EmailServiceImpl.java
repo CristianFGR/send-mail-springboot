@@ -24,38 +24,42 @@ public class EmailServiceImpl implements IEmailService {
 
     private static final Logger LOGGER = LogManager.getLogger(EmailServiceImpl.class);
 
+    private static final String RESPONSE_SEND_MAIL = "OK";
+
     @Autowired
-    public JavaMailSender emailSender;
+    private JavaMailSender emailSender;
 
     @Autowired
     private TemplateEngine templateEngine;
 
     @Override
-    public void sendMail(Mail mail){
+    public String sendMail(Mail mail) {
         try{
             MimeMessagePreparator messagePreparator = mimeMessage -> {
                 MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
                 messageHelper.setFrom(mail.getFrom());
                 messageHelper.setTo(mail.getTo());
                 messageHelper.setSubject(mail.getSubject());
-                String content = build(setPostgrado());
+                String content = build(mail, setPostgrado());
                 messageHelper.setText(content, true);
             };
             emailSender.send(messagePreparator);
         } catch (MailException mailEx) {
             LOGGER.error(mailEx.getMessage());
+            throw mailEx;
         }
+        return RESPONSE_SEND_MAIL;
     }
 
     @Override
-    public void sendMessageWithAttachment(Mail mail, String pathToAttachment) {
+    public String sendMessageWithAttachment(Mail mail, String pathToAttachment) {
         try {
             MimeMessagePreparator messagePreparator = mimeMessage -> {
                 MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
                 messageHelper.setFrom(mail.getFrom());
                 messageHelper.setTo(mail.getTo());
                 messageHelper.setSubject(mail.getSubject());
-                String content = build(setPostgrado());
+                String content = build(mail, setPostgrado());
                 messageHelper.setText(content, true);
                 FileSystemResource file = new FileSystemResource(new File(pathToAttachment+mail.getNameFile()));
                 messageHelper.addAttachment(mail.getNameFile(), file);
@@ -63,11 +67,12 @@ public class EmailServiceImpl implements IEmailService {
             emailSender.send(messagePreparator);
         } catch (MailException mailEx) {
             LOGGER.error(mailEx.getMessage());
+            throw mailEx;
         }
-
+        return RESPONSE_SEND_MAIL;
     }
 
-    private String build(Postgrado postgrado){
+    private String build(Mail mail, Postgrado postgrado){
         Context context = new Context();
         context.setVariable("nombre", postgrado.getNombre());
         context.setVariable("rut", postgrado.getRut());
@@ -85,7 +90,7 @@ public class EmailServiceImpl implements IEmailService {
         context.setVariable("financiamiento", postgrado.getFinanciamiento());
         context.setVariable("comentario", postgrado.getComentario());
         context.setVariable("adjunto", postgrado.getAdjunto());
-        return templateEngine.process("email", context);
+        return templateEngine.process(mail.getTemplateCorreo(), context);
     }
 
     private Postgrado setPostgrado(){

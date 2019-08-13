@@ -1,0 +1,7 @@
+{
+  "to": "",
+  "subject": "Pruebas de correo",
+  "from": "test@mail.cl",
+  "nameFile":"declaComp.pdf",
+  "templateCorreo":"email"
+}

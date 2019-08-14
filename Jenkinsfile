@@ -34,7 +34,7 @@ pipeline {
         stage('Build & Push Image') {
             steps {
                 sh """
-                sh "PYTHONUNBUFFERED=1 /snap/bin/gcloud builds submit -t ${imageTag} ."
+                PYTHONUNBUFFERED=1 /snap/bin/gcloud builds submit -t ${imageTag} .
                 """
             }
         }

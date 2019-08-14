@@ -41,7 +41,7 @@ pipeline {
         stage('Run in Cloud RUN') {
             steps {
                 sh """
-                PYTHONUNBUFFERED=1 /snap/bin/gcloud beta run deploy --image ${imageTag} --platform managed --region us-central1
+                PYTHONUNBUFFERED=1 /snap/bin/gcloud beta run deploy ${appName}-${env.BRANCH_NAME}-${env.BUILD_NUMBER} --image ${imageTag} --platform managed --region us-central1
                 """
             }
         }

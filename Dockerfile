@@ -1,11 +1,19 @@
+FROM openjdk:8-jdk-alpine as build
+WORKDIR /workspace/app
+
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
+
+RUN ./mvnw install -DskipTests
+
 FROM openjdk:8-jdk-alpine
-# Add a volume pointing to /tmp
 VOLUME /tmp
-# Make port 8080 available to the world outside this container
-EXPOSE 8080
-# The application’s jar file
-ARG JAR_FILE=target/send-mail-1.0.0.jar
-# Add the application’s jar to the container
-ADD ${JAR_FILE} send-mail.jar
-# Run the jar file
-ENTRYPOINT [“java”,“-jar”,“/send-mail.jar”]
+
+ARG DEPENDENCY=/workspace/app/target
+ARG APP_NAME=send-mail-1.0.0.jar
+
+COPY --from=build ${DEPENDENCY}/${APP_NAME} /app/send-mail.jar
+
+ENTRYPOINT ["java","-jar","/app/send-mail.jar"]
